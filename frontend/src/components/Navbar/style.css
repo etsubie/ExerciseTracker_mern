@@ -1,0 +1,27 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.navbar-container{
+    display: flex;
+    justify-content: space-around;
+    background: rgb(23, 23, 39);
+    padding: 10px;
+}
+.logo-name{
+    color: white;
+    font-size: 20px;
+}
+.menu{
+    display: flex;
+    gap: 15px;
+}
+.link{
+    text-decoration: none;
+    color: rgb(202, 200, 200);
+}
+.link:hover{
+    color: white;
+}
