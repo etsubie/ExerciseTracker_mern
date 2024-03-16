@@ -1,4 +1,4 @@
-import express from 'express';
+import express  from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -22,8 +22,7 @@ app.use('/exercises', exerciseRouter);
 app.listen(port, () => {
     console.log(`server is running on port: ${port}`)
 });
-// useNewUrlParser and UseUnifiedTopology is deprecated
-//mongoose.connect(URL, {useNewUrlParser: true, useUnifiedTopology: true});
+
 mongoose.connect(URL);
 connection.once('open', () =>{
     console.log('MongoDB database connection established successfuly')
