@@ -14,7 +14,7 @@ function App() {
       <Navbar/>
       <Routes>
           <Route path="/" exact Component={Exercises}/>
-          <Route path="/create" Component={CreateExercise}/>
+          <Route path="/add" Component={CreateExercise}/>
           <Route path="/edit/:id" Component={EditExercise}/>
           <Route path="/add" Component={CreateUser}/>
       </Routes>

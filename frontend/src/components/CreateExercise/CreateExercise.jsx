@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { createExercise } from '../../actions/exercise'
+
 
 const CreateExercise = () => {
 
   const [exercise, setExercise] = useState({username: '', description: '', duration: '', date: ''})
-
+  const dispatch = useDispatch()
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    
+    dispatch(createExercise(exercise))
 
     setExercise({username: '', description: '', duration: '', date: ''})
 

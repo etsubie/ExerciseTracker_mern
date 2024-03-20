@@ -11,7 +11,7 @@ const Navbar = () => {
         </div>
         <div className="menu">
             <Link className ='link' to = "/">Exercises</Link>
-            <Link className='link' to = "/create">Create Exercise Log</Link>
+            <Link className='link' to = "/add">Create Exercise Log</Link>
             <Link className='link' to = "/add">Create User</Link>
         </div>
     </div>

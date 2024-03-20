@@ -1,4 +1,4 @@
-export const Exercise = (state = [], action) => {
+export const exercise = (state = [], action) => {
     switch (action.type) {
         case 'CREATE':
             return [...state, action.payload];
