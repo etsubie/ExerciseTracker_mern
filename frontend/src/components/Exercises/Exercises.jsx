@@ -1,20 +1,34 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchExercises } from '../../actions/exercise';
+import { fetchExercises, deleteExercise } from '../../actions/exercise';
+import {  useNavigate } from 'react-router-dom';
 
-const Exercises = () => {
+const Exercises = ({ setCurrentID }) => {
   const dispatch = useDispatch();
-  const exercises = useSelector((state) => state.exercises); 
+  const exercises = useSelector((state) => state.exercises);
+  const isLoading = useSelector((state) => state.isLoading); 
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(fetchExercises());
   }, [dispatch]);
 
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+const handleEdit = (id) =>{
+  setCurrentID(id)
+  navigate('/add')
+}
+const handelDelete = (id) =>{
+  dispatch(deleteExercise(id))
+}
+
   return (
     <>
       {!exercises.length ? (
-        <p>No Exercises</p>
+        <p>No </p>
       ) : (
         <>
           <h1>Logged Exercises</h1>
@@ -36,7 +50,8 @@ const Exercises = () => {
                   <td>{exercise.duration}</td>
                   <td>{exercise.date}</td>
                   <td>
-                    <Link to={`/edit/${exercise._id}`}>edit</Link> | <Link to={`/delete/${exercise._id}`}>delete</Link>
+                    <button onClick={() => handleEdit(exercise._id)}>Edit</button>
+                    <button onClick={() => handelDelete(exercise._id)}>Delete</button> 
                   </td>
                 </tr>
               ))}
@@ -46,6 +61,6 @@ const Exercises = () => {
       )}
     </>
   );
-}
+};
 
 export default Exercises;
