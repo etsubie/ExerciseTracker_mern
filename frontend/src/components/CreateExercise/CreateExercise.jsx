@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createExercise, updateExercise } from '../../actions/exercise';
 import { useNavigate } from 'react-router-dom';
+import { fetchUsers } from '../../actions/users';
 
 const CreateExercise = ({ currentID, setCurrentID }) => {
   const [exercise, setExercise] = useState({ username: '', description: '', duration: '', date: '' });
   const dispatch = useDispatch();
   const exercises = useSelector((state) => state.exercises);
-  const navigate = useNavigate()
+  const users = useSelector((state) => state.users);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   useEffect(() => {
     if (currentID) {
@@ -29,14 +35,25 @@ const CreateExercise = ({ currentID, setCurrentID }) => {
 
     setExercise({ username: '', description: '', duration: '', date: '' });
     setCurrentID(null);
-    navigate('/')
+    navigate('/');
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <h1>{currentID ? 'Update Exercise Log' : 'Create New Exercise Log'}</h1>
-        <input type="text" value={exercise.username} onChange={(e) => setExercise({ ...exercise, username: e.target.value })} name='username' placeholder='Username' />
+
+        <select 
+          value={exercise.username} 
+          onChange={(e) => setExercise({ ...exercise, username: e.target.value })} 
+          name='username' 
+        >
+          <option value="">Select Username</option>
+          {users.map(user => (
+            <option key={user.id} value={user.username}>{user.username}</option>
+          ))}
+        </select>
+
         <input type="text" value={exercise.description} onChange={(e) => setExercise({ ...exercise, description: e.target.value })} name='description' placeholder='Description' />
         <input type="text" value={exercise.duration} onChange={(e) => setExercise({ ...exercise, duration: e.target.value })} name='duration' placeholder='Duration (in minutes)' />
         <input type="text" value={exercise.date} onChange={(e) => setExercise({ ...exercise, date: e.target.value })} name='date' placeholder='Date' />

@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Exercises setCurrentID={setCurrentID} />} />
         <Route path="/add" element={<CreateExercise currentID={currentID} setCurrentID={setCurrentID} />} />
-        <Route path="/users" element={<CreateUser />} />
+        <Route path="/create" element={<CreateUser />} />
       </Routes>
     </BrowserRouter>
   );

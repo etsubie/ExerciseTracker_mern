@@ -13,22 +13,23 @@ const Exercises = ({ setCurrentID }) => {
     dispatch(fetchExercises());
   }, [dispatch]);
 
+  const handleEdit = (id) =>{
+    setCurrentID(id)
+    navigate('/add')
+  }
+  const handelDelete = (id) =>{
+    dispatch(deleteExercise(id))
+  }
+  
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
 
-const handleEdit = (id) =>{
-  setCurrentID(id)
-  navigate('/add')
-}
-const handelDelete = (id) =>{
-  dispatch(deleteExercise(id))
-}
-
   return (
     <>
       {!exercises.length ? (
-        <p>No </p>
+        <p>No Exercises</p>
       ) : (
         <>
           <h1>Logged Exercises</h1>
