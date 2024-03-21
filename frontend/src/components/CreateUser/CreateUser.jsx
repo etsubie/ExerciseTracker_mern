@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from '../../actions/users';
+import { Link } from 'react-router-dom';
 
 const CreateUser = () => {
   const [user, setUser] = useState({ username: '' });
@@ -9,16 +10,19 @@ const CreateUser = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
 
+  useEffect(() => {
+    // Check for duplicates when users state changes
+    const isDuplicateUser = users.some((u) => u.username === user.username);
+    setIsDuplicate(isDuplicateUser);
+  }, [users, user.username]); // Only re-run the effect if users or user.username change
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const isDuplicateUser = users.some((u) => u.username === user.username);
-  
-    if (isDuplicateUser) {
-      setIsDuplicate(true);
+
+    if (isDuplicate) {
       return;
     }
-  
+
     dispatch(createUser(user))
       .then(() => {
         setIsCreated(true);
@@ -28,7 +32,6 @@ const CreateUser = () => {
         console.error('Error creating user:', error);
       });
   };
-  
 
   return (
     <>
@@ -45,6 +48,7 @@ const CreateUser = () => {
       </form>
       {isDuplicate && <p>User already exists.</p>}
       {isCreated && <p>User created successfully!</p>}
+      <Link to='/users'>users</Link>
     </>
   );
 };
