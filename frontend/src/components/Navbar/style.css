@@ -9,6 +9,7 @@
     justify-content: space-around;
     background: rgb(23, 23, 39);
     padding: 10px;
+    width: 90%;
 }
 .logo-name{
     color: white;
@@ -24,4 +25,14 @@
 }
 .link:hover{
     color: white;
+}
+
+@media(max-width: 550px){
+    .navbar-container{
+        flex-direction: column;
+        gap: 30px;
+    }
+    .menu{
+        flex-direction: column;
+    }
 }

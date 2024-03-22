@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { createExercise, updateExercise } from '../../actions/exercise';
-import { useNavigate } from 'react-router-dom';
-import { fetchUsers } from '../../actions/users';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
+import { fetchUsers } from "../../actions/users";
+import { createExercise, updateExercise } from "../../actions/exercise";
+import "./style.css";
 
 const CreateExercise = ({ currentID, setCurrentID }) => {
-  const [exercise, setExercise] = useState({ username: '', description: '', duration: '', date: '' });
+  const [exercise, setExercise] = useState({
+    username: "",
+    description: "",
+    duration: "",
+    date: "",
+  });
   const dispatch = useDispatch();
   const exercises = useSelector((state) => state.exercises);
   const users = useSelector((state) => state.users);
@@ -27,38 +34,86 @@ const CreateExercise = ({ currentID, setCurrentID }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (currentID) {
-      dispatch(updateExercise(currentID, exercise));
-    } else {
-      dispatch(createExercise(exercise));
+    if (
+      !exercise.username ||
+      !exercise.description ||
+      !exercise.duration ||
+      !exercise.date
+    ) {
+      // You may want to add validation for other fields as well
+      alert("Please fill in all fields");
+      return;
     }
 
-    setExercise({ username: '', description: '', duration: '', date: '' });
+    if (currentID) {
+      dispatch(updateExercise(currentID, exercise)); // Update exercise with currentID
+    } else {
+      dispatch(createExercise(exercise)); // Create a new exercise
+    }
+
+    setExercise({ username: "", description: "", duration: "", date: "" }); // Clear the form fields
     setCurrentID(null);
-    navigate('/');
+    navigate("/"); // Navigate back to the home page
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <h1>{currentID ? 'Update Exercise Log' : 'Create New Exercise Log'}</h1>
+      <div className="exercises">
+        <form className="createForm" onSubmit={handleSubmit}>
+          <h1>
+            {currentID ? "Update Exercise Log" : "Create New Exercise Log"}
+          </h1>
 
-        <select 
-          value={exercise.username} 
-          onChange={(e) => setExercise({ ...exercise, username: e.target.value })} 
-          name='username' 
-        >
-          <option value="">Select Username</option>
-          {users.map(user => (
-            <option key={user.id} value={user.username}>{user.username}</option>
-          ))}
-        </select>
+          <select
+            value={exercise.username}
+            onChange={(e) =>
+              setExercise({ ...exercise, username: e.target.value })
+            }
+            name="username"
+            disabled={currentID ? true : false}
+            
+          >
+            <option value="">Select Username</option>
+            {users.map((user) => (
+              <option key={user.id} value={user.username} >
+                {user.username}
+              </option>
+            ))}
+          </select>
 
-        <input type="text" value={exercise.description} onChange={(e) => setExercise({ ...exercise, description: e.target.value })} name='description' placeholder='Description' />
-        <input type="text" value={exercise.duration} onChange={(e) => setExercise({ ...exercise, duration: e.target.value })} name='duration' placeholder='Duration (in minutes)' />
-        <input type="text" value={exercise.date} onChange={(e) => setExercise({ ...exercise, date: e.target.value })} name='date' placeholder='Date' />
-        <button type="submit">{currentID ? 'Update' : 'Create'} Exercise Log</button>
-      </form>
+          <input
+            required
+            type="text"
+            value={exercise.description}
+            onChange={(e) =>
+              setExercise({ ...exercise, description: e.target.value })
+            }
+            name="description"
+            placeholder="Description"
+          />
+          <input
+            required
+            type="text"
+            value={exercise.duration}
+            onChange={(e) =>
+              setExercise({ ...exercise, duration: e.target.value })
+            }
+            name="duration"
+            placeholder="Duration (in minutes)"
+          />
+          <input
+            required
+            type="date"
+            value={moment(exercise.date).format("YYYY-MM-DD")}
+            onChange={(e) => setExercise({ ...exercise, date: e.target.value })}
+            name="date"
+            placeholder="Date"
+          />
+          <button className="createBtn" type="submit">
+            {currentID ? "Update" : "Create"} Exercise Log
+          </button>
+        </form>
+      </div>
     </>
   );
 };

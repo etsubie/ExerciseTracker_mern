@@ -1,0 +1,25 @@
+.createForm {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  gap: 20px;
+}
+input,
+select {
+  border: solid 1px grey;
+}
+
+input,
+button,
+select {
+  height: 40px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+.createBtn {
+  background: blue;
+  font-size: 15px;
+  border: none;
+  color: white;
+}

@@ -38,23 +38,6 @@ export const addUsers = async(req,res) => {
     }
 };
 
-export const updateUser = async (req, res) => {
-    const {id} = req.params;
-    const userUpdates = req.body;
-    try {
-        const updatedUser = await userModel.findByIdAndUpdate(id, userUpdates, {new: true});
-
-    if(!updatedUser){
-        return res.status(404).json({message: 'user Not Found'});
-    }
-
-    res.json(updatedUser);
-   } catch (error) {
-    console.log(error);
-    res.status(500).json({message: 'Server Error'});
-   }
-};
-
 export const deleteUser = async (req, res) => {
     const {id} = req.params;
 

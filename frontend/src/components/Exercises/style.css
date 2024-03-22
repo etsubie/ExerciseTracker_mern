@@ -1,0 +1,49 @@
+
+.exercises {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.exerciseTable{
+    width: 100%;
+}
+h1 {
+  font-weight: normal;
+  font-size: 24px;
+}
+th {
+  font-weight: normal;
+  font-size: 16px;
+  text-align: start;
+}
+.heading {
+  background: rgba(161, 204, 190, 0.6);
+}
+tr {
+  height: 40px;
+  border-bottom: solid 1px silver;
+}
+td{
+    font-size: 14px;
+}
+.date{
+  font-size: 13px;
+}
+.btns {
+  display: flex;
+  gap: 4px;
+  color: rgb(60, 134, 230);
+  align-items: center;
+}
+.description{
+  width: 450px;
+}
+.editBtn,
+.deleteBtn {
+    background: transparent;
+    border: none;
+    color: rgb(60, 134, 230);
+    font-size: 13px;
+    cursor: pointer;
+}

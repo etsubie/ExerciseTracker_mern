@@ -1,0 +1,10 @@
+.users {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.createForm,
+.userTable {
+  width: 100%;
+}
